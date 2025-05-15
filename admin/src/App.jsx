@@ -10,7 +10,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const App = ()=> {
 
-  const url ="http://localhost:4000"
+  // Use environment variable for API URL or fallback to localhost for development
+  const url = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   return(
     <div>
@@ -26,6 +27,7 @@ const App = ()=> {
         </Routes>
       </div>
     </div>
+  
   )
 }
 

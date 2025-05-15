@@ -7,10 +7,25 @@ export const StoreContext = createContext(null);
  const  StoreContextProvider = (props) => {
 
     const[cartItems, setCartItems] = useState({});
+    const[user, setUser] = useState(null);
 
-    const url="http://localhost:4000";
+    // Use environment variable for API URL or fallback to localhost for development
+    const url = import.meta.env.VITE_API_URL || "http://localhost:4000";
     const [token,setToken] = useState("");
-    const [food_list, setFoodList] = useState([])
+    const [food_list, setFoodList] = useState([]);
+
+    const getUserInfo = async (token) => {
+      try {
+        const response = await axios.post(url+"/api/user/info", {}, {headers: {token}});
+        if (response.data.success) {
+          setUser(response.data.user);
+          console.log("User info loaded:", response.data.user);
+        }
+      } catch (error) {
+        console.error("Error loading user info:", error);
+      }
+    };
+
     const addToCart = async (itemId) => {
         if(!cartItems[itemId]){
             setCartItems((prev)=> ({...prev, [itemId]: 1}))
@@ -64,6 +79,7 @@ export const StoreContext = createContext(null);
             if(localStorage.getItem("token")){
                 setToken(localStorage.getItem("token"));
                 await loadCartData(localStorage.getItem("token"));
+                await getUserInfo(localStorage.getItem("token"));
             }
         }
         loadData();
@@ -78,7 +94,9 @@ export const StoreContext = createContext(null);
         getTotalCartAmount,
         url,
         token,
-        setToken
+        setToken,
+        user,
+        setUser
     }
 
 

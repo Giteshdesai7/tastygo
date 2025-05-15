@@ -69,4 +69,21 @@ const registerUser = async(req, res)=>{
     }
 }
 
-export {loginUser, registerUser};
+const getUserInfo = async(req, res) => {
+    try {
+        const userId = req.body.userId;
+        console.log("Getting user info for:", userId);
+        
+        const user = await userModel.findById(userId).select('-password');
+        if(!user) {
+            return res.json({success: false, message: "User not found"});
+        }
+        
+        res.json({success: true, user});
+    } catch (error) {
+        console.error("Error fetching user info:", error);
+        res.json({success: false, message: "Error fetching user information"});
+    }
+}
+
+export {loginUser, registerUser, getUserInfo};

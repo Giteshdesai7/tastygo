@@ -81,6 +81,7 @@ const [data, setData]= useState({
     
                     </select>
                 </div>
+                
                 <div className="add-price flex-col">
                         <p>Prodct Price</p>
                         <input onChange={onChangeHandler} value={data.price} type="Number" name="price" placeholder='₹ 200'/>

@@ -70,16 +70,20 @@ const placeOrder=  async(req, res)=>{
 const verifyOrder= async(req, res)=>{
    const {orderId, success}= req.body;
    try {
-    if (success==="true") {
-        await orderModel.findByIdAndUpdate(orderId, {payment:"true"});
+    console.log("Verifying order:", { orderId, success });
+    
+    if (success === "true") {
+        await orderModel.findByIdAndUpdate(orderId, {payment: true});
+        console.log("Payment marked as successful for order:", orderId);
         res.json({success:true, message:"Payment Successful"})
     }
     else{
         await orderModel.findByIdAndDelete(orderId);
+        console.log("Order deleted due to payment failure:", orderId);
         res.json({success:false, message:"Payment Failed"})
     }
    } catch (error) {
-    console.log(error);
+    console.log("Verification error:", error);
     res.json({success:false, message:"Error"})
    }
 }

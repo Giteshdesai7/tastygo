@@ -10,13 +10,13 @@
 }
 .my-orders-order{
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr 2fr;
     align-items: center;
     gap: 30px;
     font-size: 14px;
     padding: 10px 20px;
    color: #454545;
-   border: 1px solid #6900FE;
+   border: 1px solid #6900fe;
 }
 .my-orders-order img{
     width: 50px;
@@ -33,9 +33,10 @@
     border: none;
     padding: 12px 0px;
     border-radius: 4px;
-    background-color:rgb(154, 119, 203);
+    background-color:rgb(230, 212, 255);
     cursor: pointer;
-    color: #454545;
+    color:rgb(0, 0, 0);
+    
 }
 @media (max-width: 900px) {
     .my-orders-order{
